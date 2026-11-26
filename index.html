@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SnapQuest | The Unknown Snap</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --yellow: #fffc00;
+    --black: #080808;
+    --white: #ffffff;
+    --gray: #222222;
+    --green: #00e676;
+    --red: #ff1744;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--yellow);
+    color: var(--black);
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* BACKGROUND */
+
+.background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.bubble {
+    position: absolute;
+    font-size: 35px;
+    opacity: 0.18;
+    animation: floatBubble 12s linear infinite;
+}
+
+@keyframes floatBubble {
+    0% {
+        transform: translateY(110vh) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-150px) rotate(360deg);
+    }
+}
+
+/* HEADER */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 5%;
+    border-bottom: 3px solid black;
+    background: rgba(255,252,0,0.9);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.logo span {
+    background: black;
+    color: var(--yellow);
+    padding: 3px 9px;
+    border-radius: 8px;
+}
+
+.controls {
+    display: flex;
+    gap: 8px;
+}
+
+.control {
+    border: 2px solid black;
+    background: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 12px;
+    transition: 0.2s;
+}
+
+.control:hover {
+    transform: scale(1.08) rotate(-2deg);
+}
+
+/* MAIN */
+
+.container {
+    width: 92%;
+    max-width: 900px;
+    margin: 30px auto;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 25px;
+    animation: slideDown 0.8s ease;
+}
+
+.hero h1 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: clamp(35px, 8vw, 65px);
+    font-weight: 700;
+    line-height: 1;
+    text-shadow: 4px 4px 0 white;
+}
+
+.hero p {
+    margin-top: 12px;
+    font-weight: 600;
+}
+
+/* DASHBOARD */
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.stat {
+    background: white;
+    border: 3px solid black;
+    border-radius: 15px;
+    padding: 12px 5px;
+    text-align: center;
+    box-shadow: 4px 4px 0 black;
+    animation: popIn 0.5s ease;
+}
+
+.stat small {
+    display: block;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.stat strong {
+    font-size: 23px;
+}
+
+/* PROGRESS */
+
+.progress-box {
+    background: white;
+    border: 3px solid black;
+    border-radius: 15px;
+    padding: 12px;
+    margin-bottom: 25px;
+}
+
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.progress-track {
+    height: 15px;
+    background: #ddd;
+    border: 2px solid black;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--yellow);
+    transition: width 0.7s cubic-bezier(.2,1.5,.5,1);
+}
+
+/* GAME CARD */
+
+.game-card {
+    background: white;
+    border: 4px solid black;
+    border-radius: 25px;
+    padding: 25px;
+    box-shadow: 8px 8px 0 black;
+    min-height: 350px;
+    position: relative;
+    overflow: hidden;
+    animation: cardAppear 0.6s ease;
+}
+
+.game-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.badge {
+    background: var(--yellow);
+    border: 2px solid black;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 900;
+}
+
+.game-card h2 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.description {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+/* BUTTONS */
+
+button {
+    font-family: inherit;
+}
+
+.main-btn {
+    background: black;
+    color: white;
+    border: 3px solid black;
+    border-radius: 14px;
+    padding: 13px 20px;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.2s;
+    margin: 5px;
+}
+
+.main-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 5px 0 #aaa;
+}
+
+.main-btn:active {
+    transform: scale(0.95);
+}
+
+.yellow-btn {
+    background: var(--yellow);
+    color: black;
+}
+
+.option-btn {
+    background: white;
+    border: 3px solid black;
+    border-radius: 12px;
+    padding: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.option-btn:hover {
+    background: var(--yellow);
+    transform: scale(1.04);
+}
+
+/* INPUT */
+
+input {
+    width: 100%;
+    max-width: 350px;
+    padding: 14px;
+    border: 3px solid black;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    outline: none;
+    margin: 10px 0;
+}
+
+input:focus {
+    box-shadow: 0 0 0 5px var(--yellow);
+}
+
+/* GAME AREAS */
+
+.center {
+    text-align: center;
+}
+
+.big-emoji {
+    font-size: 75px;
+    display: block;
+    margin: 20px;
+    animation: bounce 1.5s infinite;
+}
+
+.decoder-code {
+    background: black;
+    color: var(--yellow);
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: 8px;
+    padding: 20px;
+    border-radius: 15px;
+    margin: 15px auto;
+    max-width: 350px;
+    animation: glitch 3s infinite;
+}
+
+.memory-display {
+    font-size: 35px;
+    letter-spacing: 8px;
+    min-height: 65px;
+    margin: 20px 0;
+}
+
+.memory-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    max-width: 400px;
+    margin: auto;
+}
+
+.memory-tile {
+    background: var(--yellow);
+    border: 3px solid black;
+    border-radius: 15px;
+    font-size: 35px;
+    min-height: 80px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.memory-tile:hover {
+    transform: rotate(5deg) scale(1.05);
+}
+
+.memory-tile:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* REFLEX */
+
+.reflex-area {
+    background: black;
+    color: white;
+    border-radius: 20px;
+    padding: 35px 15px;
+    margin: 20px 0;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.reflex-area h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.reflex-button {
+    background: #333;
+    color: white;
+    border: 3px solid white;
+    border-radius: 15px;
+    padding: 18px 35px;
+    font-size: 20px;
+    font-weight: 900;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.reflex-button.ready {
+    background: var(--green);
+    color: black;
+    animation: pulse 0.5s infinite alternate;
+}
+
+/* GHOST HUNT */
+
+.ghost-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+.ghost-tile {
+    background: var(--yellow);
+    border: 3px solid black;
+    border-radius: 12px;
+    min-height: 65px;
+    font-size: 25px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.ghost-tile:hover {
+    transform: rotate(-5deg) scale(1.08);
+}
+
+.ghost-tile.wrong {
+    background: #ff5252;
+    animation: shake 0.4s;
+}
+
+.ghost-tile.correct {
+    background: var(--green);
+    animation: popIn 0.5s;
+}
+
+/* FEEDBACK */
+
+.feedback {
+    min-height: 30px;
+    font-weight: 800;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.feedback.good {
+    color: #008f48;
+}
+
+.feedback.bad {
+    color: #d50000;
+}
+
+/* TOAST */
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translate(-50%, 100px);
+    background: black;
+    color: white;
+    padding: 14px 20px;
+    border-radius: 15px;
+    font-weight: 800;
+    z-index: 100;
+    transition: 0.4s;
+    text-align: center;
+    width: max-content;
+    max-width: 90%;
+}
+
+.toast.show {
+    transform: translate(-50%, 0);
+}
+
+/* WIN SCREEN */
+
+.win-screen {
+    text-align: center;
+    padding: 20px;
+    animation: popIn 0.7s ease;
+}
+
+.win-screen h1 {
+    font-size: 45px;
+    font-family: 'Fredoka', sans-serif;
+}
+
+.win-emoji {
+    font-size: 100px;
+    display: block;
+    animation: spinBounce 2s infinite;
+}
+
+/* CONFETTI */
+
+.confetti {
+    position: fixed;
+    top: -20px;
+    width: 12px;
+    height: 18px;
+    background: black;
+    z-index: 200;
+    animation: confettiFall 3s linear forwards;
+    pointer-events: none;
+}
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 25px;
+}
+
+/* ANIMATIONS */
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.08);
+    }
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    70% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-40px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes cardAppear {
+    from {
+        transform: translateY(30px) rotate(2deg);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) rotate(0);
+        opacity: 1;
+    }
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-8px);
+    }
+    75% {
+        transform: translateX(8px);
+    }
+}
+
+@keyframes glitch {
+    0%, 90%, 100% {
+        transform: translateX(0);
+    }
+    92% {
+        transform: translateX(-3px);
+    }
+    94% {
+        transform: translateX(3px);
+    }
+}
+
+@keyframes spinBounce {
+    0%, 100% {
+        transform: rotate(-10deg) scale(1);
+    }
+    50% {
+        transform: rotate(10deg) scale(1.15);
+    }
+}
+
+@keyframes confettiFall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* MOBILE */
+
+@media(max-width:600px) {
+    header {
+        padding: 14px 3%;
+    }
+
+    .logo {
+        font-size: 19px;
+    }
+
+    .control {
+        padding: 7px 9px;
+        font-size: 10px;
+    }
+
+    .dashboard {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .game-card {
+        padding: 18px;
+    }
+
+    .game-card h2 {
+        font-size: 25px;
+    }
+
+    .hero h1 {
+        text-shadow: 3px 3px 0 white;
+    }
+
+    .ghost-tile {
+        min-height: 55px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background" id="background"></div>
+
+<header>
+    <div class="logo">SNAP<span>QUEST</span></div>
+
+    <div class="controls">
+        <button class="control" id="voiceToggle">🔊 Voice ON</button>
+        <button class="control" id="soundToggle">🎵 Sound ON</button>
+    </div>
+</header>
+
+<div class="container">
+
+    <section class="hero">
+        <h1>THE UNKNOWN SNAP</h1>
+        <p>Four games. One mystery. Can you survive?</p>
+    </section>
+
+    <section class="dashboard">
+        <div class="stat">
+            <small>🏆 SCORE</small>
+            <strong id="score">0</strong>
+        </div>
+
+        <div class="stat">
+            <small>❤️ LIVES</small>
+            <strong id="lives">5</strong>
+        </div>
+
+        <div class="stat">
+            <small>🔥 STREAK</small>
+            <strong id="streak">0</strong>
+        </div>
+
+        <div class="stat">
+            <small>🎮 LEVEL</small>
+            <strong id="level">1/4</strong>
+        </div>
+    </section>
+
+    <section class="progress-box">
+        <div class="progress-label">
+            <span>QUEST PROGRESS</span>
+            <span id="progressText">0%</span>
+        </div>
+
+        <div class="progress-track">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+    </section>
+
+    <section class="game-card" id="gameCard">
+        <div class="center">
+            <span class="big-emoji">👻</span>
+            <h2>Welcome to SnapQuest</h2>
+            <p class="description">
+                Your mission is simple: solve every challenge,
+                survive the traps, and discover the unknown snap.
+            </p>
+
+            <button class="main-btn yellow-btn" onclick="startGame()">
+                START QUEST ⚡
+            </button>
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    SNAPQUEST • UNLOCK THE UNKNOWN 👻
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================
+   SNAPQUEST GAME ENGINE
+========================= */
+
+let score = 0;
+let lives = 5;
+let streak = 0;
+let completed = 0;
+let currentGame = 0;
+
+let voiceEnabled = true;
+let soundEnabled = true;
+
+let audioContext = null;
+
+const gameCard = document.getElementById("gameCard");
+
+/* BACKGROUND EMOJIS */
+
+const background = document.getElementById("background");
+
+const floatingEmojis = ["👻", "⚡", "💛", "📸", "✨", "🌀"];
+
+for (let i = 0; i < 20; i++) {
+    const bubble = document.createElement("div");
+    bubble.className = "bubble";
+    bubble.textContent =
+        floatingEmojis[Math.floor(Math.random() * floatingEmojis.length)];
+
+    bubble.style.left = Math.random() * 100 + "%";
+    bubble.style.animationDuration = (8 + Math.random() * 15) + "s";
+    bubble.style.animationDelay = (Math.random() * 10) + "s";
+
+    background.appendChild(bubble);
+}
+
+/* VOICE */
+
+function speak(message) {
+    if (!voiceEnabled || !("speechSynthesis" in window)) return;
+
+    speechSynthesis.cancel();
+
+    const speech = new SpeechSynthesisUtterance(message);
+    speech.rate = 1.05;
+    speech.pitch = 1.15;
+    speech.volume = 1;
+
+    speechSynthesis.speak(speech);
+}
+
+/* SOUND */
+
+function playSound(frequency = 500, duration = 0.15) {
+    if (!soundEnabled) return;
+
+    try {
+        audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
+
+        if (audioContext.state === "suspended") {
+            audioContext.resume();
+        }
+
+        const oscillator = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+
+        oscillator.type = "triangle";
+        oscillator.frequency.value = frequency;
+
+        gain.gain.setValueAtTime(0.15, audioContext.currentTime);
+        gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            audioContext.currentTime + duration
+        );
+
+        oscillator.connect(gain);
+        gain.connect(audioContext.destination);
+
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + duration);
+
+    } catch (error) {
+        console.log("Sound unavailable");
+    }
+}
+
+/* TOAST */
+
+function toast(message) {
+    const toastBox = document.getElementById("toast");
+
+    toastBox.textContent = message;
+    toastBox.classList.add("show");
+
+    setTimeout(() => {
+        toastBox.classList.remove("show");
+    }, 2500);
+}
+
+/* DASHBOARD */
+
+function updateStats() {
+    document.getElementById("score").textContent = score;
+    document.getElementById("lives").textContent = lives;
+    document.getElementById("streak").textContent = streak;
+    document.getElementById("level").textContent =
+        Math.min(currentGame + 1, 4) + "/4";
+
+    const percentage = Math.round((completed / 4) * 100);
+
+    document.getElementById("progressText").textContent =
+        percentage + "%";
+
+    document.getElementById("progressFill").style.width =
+        percentage + "%";
+}
+
+/* LIFE SYSTEM */
+
+function loseLife(message) {
+    lives--;
+    streak = 0;
+
+    updateStats();
+
+    playSound(150, 0.3);
+    toast(message);
+
+    if (lives <= 0) {
+        gameOver();
+    }
+}
+
+/* SCORE SYSTEM */
+
+function addScore(points) {
+    score += points;
+    streak++;
+
+    updateStats();
+
+    playSound(700, 0.2);
+
+    if (streak >= 3) {
+        toast("🔥 STREAK BONUS!");
+        score += 50;
+        updateStats();
+    }
+}
+
+/* GAME START */
+
+function startGame() {
+    currentGame = 0;
+    completed = 0;
+    score = 0;
+    lives = 5;
+    streak = 0;
+
+    updateStats();
+
+    speak("Welcome to SnapQuest. Let's begin.");
+
+    loadGame();
+}
+
+/* GAME LOADER */
+
+function loadGame() {
+    updateStats();
+
+    gameCard.style.animation = "none";
+    void gameCard.offsetWidth;
+    gameCard.style.animation = "cardAppear 0.6s ease";
+
+    if (currentGame === 0) {
+        decoderGame();
+    } else if (currentGame === 1) {
+        memoryGame();
+    } else if (currentGame === 2) {
+        reflexGame();
+    } else if (currentGame === 3) {
+        ghostGame();
+    } else {
+        winGame();
+    }
+}
+
+/* GAME COMPLETION */
+
+function completeGame(message) {
+    completed++;
+    currentGame++;
+
+    updateStats();
+
+    speak(message);
+
+    setTimeout(() => {
+        if (currentGame < 4) {
+            loadGame();
+        } else {
+            winGame();
+        }
+    }, 1200);
+}
+
+/* =========================
+   GAME 1: SNAP DECODER
+========================= */
+
+function decoderGame() {
+    gameCard.innerHTML = `
+        <div class="game-top">
+            <span class="badge">GAME 1 / 4</span>
+            <span class="badge">🔐 DECODER</span>
+        </div>
+
+        <h2>Snap Decoder</h2>
+
+        <p class="description">
+            The numbers are hiding a secret word.
+            Each number represents a letter.
+        </p>
+
+        <div class="decoder-code">19 - 14 - 1 - 16</div>
+
+        <div class="center">
+            <input id="decoderInput"
+                   placeholder="Enter secret word"
+                   autocomplete="off">
+
+            <br>
+
+            <button class="main-btn" onclick="checkDecoder()">
+                DECODE ⚡
+            </button>
+
+            <button class="main-btn yellow-btn" onclick="decoderHint()">
+                HINT 💡
+            </button>
+
+            <div class="feedback" id="decoderFeedback"></div>
+        </div>
+    `;
+
+    speak("Game one. Decode the secret snap.");
+}
+
+function checkDecoder() {
+    const answer = document.getElementById("decoderInput")
+        .value.trim().toUpperCase();
+
+    const feedback = document.getElementById("decoderFeedback");
+
+    if (answer === "SNAP") {
+        feedback.textContent = "CORRECT! 🔥";
+        feedback.className = "feedback good";
+
+        addScore(100);
+
+        completeGame("Decoder solved. Next challenge unlocked.");
+    } else {
+        feedback.textContent = "Wrong code. Try again!";
+        feedback.className = "feedback bad";
+
+        loseLife("❌ Wrong decoder answer!");
+    }
+}
+
+let hintCount = 0;
+
+function decoderHint() {
+    hintCount++;
+
+    if (hintCount === 1) {
+        toast("Hint: A = 1, B = 2...");
+    } else if (hintCount === 2) {
+        toast("19 = S and 14 = N");
+    } else {
+        toast("The word begins with S and ends with P!");
+    }
+
+    playSound(450, 0.2);
+}
+
+/* =========================
+   GAME 2: MEMORY SNAP
+========================= */
+
+let memorySequence = [];
+let memoryInput = [];
+let memoryLevel = 0;
+let memoryBusy = false;
+
+const memoryEmojis = [
+    "👻", "⚡", "💛", "📸",
+    "🔥", "🌀", "🎯", "🍭",
+    "🌙", "💎", "🐸", "🚀"
+];
+
+function memoryGame() {
+    memoryLevel = 0;
+    memoryBusy = false;
+
+    gameCard.innerHTML = `
+        <div class="game-top">
+            <span class="badge">GAME 2 / 4</span>
+            <span class="badge">🧠 MEMORY</span>
+        </div>
+
+        <h2>Memory Snap</h2>
+
+        <p class="description">
+            Memorize the emoji sequence.
+            Repeat it correctly to unlock the next level.
+        </p>
+
+        <div class="center">
+            <div class="memory-display" id="memoryDisplay">❓</div>
+
+            <p id="memoryMessage">Press start to begin.</p>
+
+            <button class="main-btn yellow-btn"
+                    id="memoryStart"
+                    onclick="startMemoryRound()">
+                START MEMORY
+            </button>
+
+            <div class="memory-grid" id="memoryGrid"></div>
+
+            <div class="feedback" id="memoryFeedback"></div>
+        </div>
+    `;
+
+    speak("Memory Snap. Watch carefully.");
+}
+
+function startMemoryRound() {
+    if (memoryBusy) return;
+
+    memoryBusy = true;
+    memoryInput = [];
+
+    const length = 4 + memoryLevel;
+
+    memorySequence = [];
+
+    for (let i = 0; i < length; i++) {
+        memorySequence.push(
+            memoryEmojis[Math.floor(Math.random() * memoryEmojis.length)]
+        );
+    }
+
+    document.getElementById("memoryStart").disabled = true;
+    document.getElementById("memoryGrid").innerHTML = "";
+
+    const display = document.getElementById("memoryDisplay");
+    const message = document.getElementById("memoryMessage");
+
+    message.textContent = "Memorize!";
+
+    let index = 0;
+
+    display.textContent = "";
+
+    const interval = setInterval(() => {
+        if (index >= memorySequence.length) {
+            clearInterval(interval);
+
+            display.textContent = "❓";
+            message.textContent = "Now repeat the sequence!";
+
+            createMemoryButtons();
+
+            memoryBusy = false;
+            return;
+        }
+
+        display.textContent = memorySequence[index];
+
+        playSound(400 + index * 70, 0.1);
+
+        index++;
+    }, 800);
+}
+
+function createMemoryButtons() {
+    const grid = document.getElementById("memoryGrid");
+
+    grid.innerHTML = "";
+
+    const shuffled = [...memoryEmojis].sort(() => Math.random() - 0.5);
+
+    shuffled.forEach(emoji => {
+        const button = document.createElement("button");
+
+        button.className = "memory-tile";
+        button.textContent = emoji;
+
+        button.onclick = () => memoryPick(emoji, button);
+
+        grid.appendChild(button);
+    });
+}
+
+function memoryPick(emoji, button) {
+    if (memoryBusy) return;
+
+    memoryBusy = true;
+
+    const expected = memorySequence[memoryInput.length];
+
+    if (emoji === expected) {
+        memoryInput.push(emoji);
+
+        button.disabled = true;
+
+        playSound(600, 0.1);
+
+        document.getElementById("memoryDisplay").textContent =
+            memoryInput.join(" ");
+
+        if (memoryInput.length === memorySequence.length) {
+            memoryLevel++;
+
+            addScore(100 + memoryLevel * 30);
+
+            document.getElementById("memoryFeedback").textContent =
+                "Perfect memory!";
+
+            if (memoryLevel >= 2) {
+                completeGame("Memory challenge completed.");
+            } else {
+                memoryBusy = false;
+
+                document.getElementById("memoryStart").disabled = false;
+                document.getElementById("memoryStart").textContent =
+                    "NEXT MEMORY LEVEL";
+            }
+        } else {
+            memoryBusy = false;
+        }
+
+    } else {
+        document.getElementById("memoryFeedback").textContent =
+            "Wrong emoji!";
+
+        document.getElementById("memoryFeedback").className =
+            "feedback bad";
+
+        loseLife("🧠 Memory failed!");
+
+        memoryInput = [];
+
+        memoryBusy = false;
+
+        if (lives > 0) {
+            document.getElementById("memoryStart").disabled = false;
+            document.getElementById("memoryStart").textContent =
+                "TRY AGAIN";
+        }
+    }
+}
+
+/* =========================
+   GAME 3: SNAP REFLEX
+========================= */
+
+let reflexState = "idle";
+let reflexTimer = null;
+let reflexRound = 0;
+let reflexStartTime = 0;
+
+function reflexGame() {
+    reflexRound = 0;
+    reflexState = "idle";
+
+    gameCard.innerHTML = `
+        <div class="game-top">
+            <span class="badge">GAME 3 / 4</span>
+            <span class="badge">⚡ REFLEX</span>
+        </div>
+
+        <h2>Snap Reflex</h2>
+
+        <p class="description">
+            Wait for the green signal.
+            Click too early and lose a life.
+        </p>
+
+        <div class="reflex-area">
+            <h3 id="reflexMessage">Ready?</h3>
+
+            <button class="reflex-button"
+                    id="reflexButton"
+                    onclick="reflexClick()">
+                START
+            </button>
+        </div>
+
+        <div class="feedback" id="reflexFeedback"></div>
+    `;
+
+    speak("Reflex challenge. Don't click too early.");
+}
+
+function reflexClick() {
+    const button = document.getElementById("reflexButton");
+    const message = document.getElementById("reflexMessage");
+
+    if (reflexState === "idle" || reflexState === "early") {
+        reflexState = "waiting";
+
+        button.textContent = "WAIT...";
+        button.style.background = "#333";
+        button.style.color = "white";
+
+        message.textContent = "Wait for GREEN!";
+
+        const delay = 2000 + Math.random() * 4500;
+
+        reflexTimer = setTimeout(() => {
+            reflexState = "ready";
+
+            button.textContent = "SNAP NOW!";
+            button.classList.add("ready");
+
+            message.textContent = "GREEN!";
+
+            reflexStartTime = performance.now();
+
+            playSound(900, 0.3);
+        }, delay);
+
+    } else if (reflexState === "waiting") {
+        clearTimeout(reflexTimer);
+
+        reflexState = "early";
+
+        button.textContent = "TOO EARLY!";
+        button.classList.remove("ready");
+
+        message.textContent = "False start!";
+
+        loseLife("⚡ Too early!");
+
+        if (lives > 0) {
+            setTimeout(() => {
+                button.textContent = "TRY AGAIN";
+                button.style.background = "#333";
+            }, 800);
+        }
+
+    } else if (reflexState === "ready") {
+        const reaction = Math.round(performance.now() - reflexStartTime);
+
+        reflexRound++;
+
+        button.classList.remove("ready");
+
+        document.getElementById("reflexFeedback").textContent =
+            "Reaction: " + reaction + " ms";
+
+        addScore(Math.max(50, 300 - Math.floor(reaction / 3)));
+
+        if (reflexRound >= 3) {
+            reflexState = "finished";
+
+            completeGame("Reflex challenge completed.");
+        } else {
+            reflexState = "idle";
+
+            button.textContent = "NEXT ROUND";
+            button.style.background = "#333";
+            button.style.color = "white";
+
+            message.textContent = "Round " + reflexRound + " complete!";
+        }
+    }
+}
+
+/* =========================
+   GAME 4: GHOST HUNT
+========================= */
+
+let ghostTarget = 0;
+let ghostAttempts = 5;
+let ghostFound = false;
+
+function ghostGame() {
+    ghostAttempts = 5;
+    ghostFound = false;
+
+    gameCard.innerHTML = `
+        <div class="game-top">
+            <span class="badge">GAME 4 / 4</span>
+            <span class="badge">👻 GHOST HUNT</span>
+        </div>
+
+        <h2>Ghost Hunt</h2>
+
+        <p class="description">
+            A ghost is hiding in one of the tiles.
+            Find it before you run out of attempts!
+        </p>
+
+        <div class="center">
+            <p id="ghostMessage">You have 5 attempts.</p>
+
+            <div class="ghost-grid" id="ghostGrid"></div>
+
+            <div class="feedback" id="ghostFeedback"></div>
+        </div>
+    `;
+
+    ghostTarget = Math.floor(Math.random() * 16);
+
+    const grid = document.getElementById("ghostGrid");
+
+    for (let i = 0; i < 16; i++) {
+        const button = document.createElement("button");
+
+        button.className = "ghost-tile";
+        button.textContent = "❔";
+
+        button.onclick = () => ghostPick(i, button);
+
+        grid.appendChild(button);
+    }
+
+    speak("Final game. Find the hidden ghost.");
+}
+
+function ghostPick(index, button) {
+    if (ghostFound || button.disabled) return;
+
+    if (index === ghostTarget) {
+        ghostFound = true;
+
+        button.textContent = "👻";
+        button.classList.add("correct");
+
+        document.getElementById("ghostMessage").textContent =
+            "You found the ghost!";
+
+        document.getElementById("ghostFeedback").textContent =
+            "FINAL CHALLENGE COMPLETE!";
+
+        addScore(500);
+
+        completed = 4;
+        updateStats();
+
+        setTimeout(winGame, 1000);
+
+    } else {
+        ghostAttempts--;
+
+        button.textContent = "❌";
+        button.classList.add("wrong");
+        button.disabled = true;
+
+        const distance = Math.abs(index - ghostTarget);
+
+        let clue = "";
+
+        if (distance <= 1) {
+            clue = "Very close!";
+        } else if (distance <= 4) {
+            clue = "Getting warmer!";
+        } else {
+            clue = "Cold! Try another area.";
+        }
+
+        document.getElementById("ghostMessage").textContent =
+            clue + " Attempts left: " + ghostAttempts;
+
+        playSound(200, 0.2);
+
+        if (ghostAttempts <= 0) {
+            loseLife("👻 The ghost escaped!");
+
+            if (lives > 0) {
+                ghostAttempts = 5;
+
+                document.getElementById("ghostMessage").textContent =
+                    "New attempts! Keep searching.";
+            }
+        }
+    }
+}
+
+/* =========================
+   WIN SCREEN
+========================= */
+
+function winGame() {
+    updateStats();
+
+    speak("Congratulations. You have completed SnapQuest.");
+
+    createConfetti();
+
+    gameCard.innerHTML = `
+        <div class="win-screen">
+            <span class="win-emoji">👻</span>
+
+            <h1>QUEST COMPLETE!</h1>
+
+            <p class="description">
+                You unlocked the unknown snap.
+                You're officially a SnapQuest legend.
+            </p>
+
+            <div class="decoder-code">
+                SCORE: ${score}
+            </div>
+
+            <p><strong>🏆 SNAP LEGEND</strong></p>
+
+            <button class="main-btn yellow-btn"
+                    onclick="saveAchievement()">
+                DOWNLOAD ACHIEVEMENT
+            </button>
+
+            <button class="main-btn"
+                    onclick="startGame()">
+                PLAY AGAIN 🔄
+            </button>
+        </div>
+    `;
+}
+
+/* GAME OVER */
+
+function gameOver() {
+    speak("Game over. Try again.");
+
+    gameCard.innerHTML = `
+        <div class="win-screen">
+            <span class="win-emoji">💀</span>
+
+            <h1>GAME OVER</h1>
+
+            <p class="description">
+                The unknown snap defeated you.
+                But legends never give up.
+            </p>
+
+            <div class="decoder-code">
+                SCORE: ${score}
+            </div>
+
+            <button class="main-btn yellow-btn"
+                    onclick="startGame()">
+                RESTART QUEST
+            </button>
+        </div>
+    `;
+}
+
+/* CONFETTI */
+
+function createConfetti() {
+    const symbols = ["💛", "👻", "⚡", "✨", "🎉"];
+
+    for (let i = 0; i < 70; i++) {
+        const piece = document.createElement("div");
+
+        piece.className = "confetti";
+        piece.textContent =
+            symbols[Math.floor(Math.random() * symbols.length)];
+
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.animationDelay = Math.random() * 2 + "s";
+        piece.style.fontSize = (12 + Math.random() * 20) + "px";
+
+        document.body.appendChild(piece);
+
+        setTimeout(() => piece.remove(), 5000);
+    }
+}
+
+/* ACHIEVEMENT DOWNLOAD */
+
+function saveAchievement() {
+    const canvas = document.createElement("canvas");
+
+    canvas.width = 800;
+    canvas.height = 500;
+
+    const ctx = canvas.getContext("2d");
+
+    ctx.fillStyle = "#fffc00";
+    ctx.fillRect(0, 0, 800, 500);
+
+    ctx.fillStyle = "#000";
+    ctx.fillRect(25, 25, 750, 450);
+
+    ctx.fillStyle = "#fffc00";
+    ctx.font = "bold 60px Arial";
+    ctx.textAlign = "center";
+
+    ctx.fillText("SNAPQUEST", 400, 120);
+
+    ctx.font = "bold 35px Arial";
+    ctx.fillText("QUEST COMPLETE!", 400, 210);
+
+    ctx.font = "100px Arial";
+    ctx.fillText("👻", 400, 330);
+
+    ctx.font = "bold 35px Arial";
+    ctx.fillText("SCORE: " + score, 400, 410);
+
+    ctx.font = "20px Arial";
+    ctx.fillText("SNAP LEGEND", 400, 450);
+
+    const link = document.createElement("a");
+
+    link.download = "SnapQuest-Achievement.png";
+    link.href = canvas.toDataURL("image/png");
+
+    link.click();
+
+    toast("Achievement downloaded!");
+}
+
+/* VOICE TOGGLE */
+
+document.getElementById("voiceToggle").onclick = function() {
+    voiceEnabled = !voiceEnabled;
+
+    this.textContent = voiceEnabled
+        ? "🔊 Voice ON"
+        : "🔇 Voice OFF";
+
+    if (voiceEnabled) {
+        speak("Voice enabled.");
+    } else if ("speechSynthesis" in window) {
+        speechSynthesis.cancel();
+    }
+};
+
+/* SOUND TOGGLE */
+
+document.getElementById("soundToggle").onclick = function() {
+    soundEnabled = !soundEnabled;
+
+    this.textContent = soundEnabled
+        ? "🎵 Sound ON"
+        : "🔇 Sound OFF";
+
+    if (soundEnabled) {
+        playSound(700, 0.2);
+    }
+};
+
+/* INITIAL STATS */
+
+updateStats();
+</script>
+
+</body>
+</html>
